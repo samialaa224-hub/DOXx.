@@ -1,0 +1,337 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Cairo', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f8f9fa;
+}
+
+.sticky-top {
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+.nav-link {
+    font-weight: 600;
+    margin: 0 5px;
+    transition: color 0.3s;
+}
+
+.nav-link:hover {
+    color: #ffc107 !important;
+}
+
+.hero-section {
+    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                url('../assets/images/hero-bg.jpg') center/cover no-repeat;
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+}
+
+.hero-content {
+    animation: fadeIn 1.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.section-title {
+    position: relative;
+    padding-bottom: 15px;
+    margin-bottom: 30px;
+    color: #2c3e50;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 50%;
+    transform: translateX(50%);
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(to right, #3498db, #2ecc71);
+    border-radius: 2px;
+}
+
+.service-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+    height: 100%;
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+.service-icon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.table {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.table th {
+    background-color: #2c3e50;
+    color: white;
+    font-weight: 600;
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(52, 152, 219, 0.1);
+}
+
+.status-available {
+    color: #27ae60;
+    font-weight: bold;
+}
+
+.status-completed {
+    color: #e74c3c;
+    font-weight: bold;
+}
+
+.card {
+    border: none;
+    border-radius: 15px;
+}
+
+.form-control, .form-select {
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 10px 15px;
+    transition: border-color 0.3s;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+}
+
+.form-range::-webkit-slider-thumb {
+    background: #3498db;
+}
+
+.form-range::-moz-range-thumb {
+    background: #3498db;
+}
+
+.stat-box {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+}
+
+.stat-box:hover {
+    transform: translateY(-5px);
+}
+
+#helpVideo {
+    border-radius: 10px;
+}
+
+.accordion-button {
+    font-weight: 600;
+    background-color: #f8f9fa;
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: #e3f2fd;
+    color: #1565c0;
+}
+
+footer {
+    margin-top: 50px;
+}
+
+.social-icons a {
+    transition: opacity 0.3s;
+}
+
+.social-icons a:hover {
+    opacity: 0.8;
+}
+
+.dark-mode {
+    background-color: #1a1a1a;
+    color: #f0f0f0;
+}
+
+.dark-mode .navbar {
+    background-color: #2d2d2d !important;
+    border-bottom: 1px solid #444;
+}
+
+.dark-mode .navbar-brand,
+.dark-mode .nav-link {
+    color: #f0f0f0 !important;
+}
+
+.dark-mode .nav-link:hover {
+    color: #ffc107 !important;
+}
+
+.dark-mode .hero-section {
+    background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), 
+                url('./assets/images/hero.png') center/cover no-repeat;
+}
+
+.dark-mode .section-title {
+    color: #f0f0f0;
+}
+
+.dark-mode .section-title::after {
+    background: linear-gradient(to right, #3498db, #2ecc71);
+}
+
+.dark-mode .stat-box {
+    background-color: #2d2d2d;
+    color: #f0f0f0;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.dark-mode .card {
+    background-color: #2d2d2d;
+    color: #f0f0f0;
+    border-color: #444;
+}
+
+.dark-mode .form-control,
+.dark-mode .form-select {
+    background-color: #2d2d2d;
+    color: #f0f0f0;
+    border-color: #444;
+}
+
+.dark-mode .form-control:focus,
+.dark-mode .form-select:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+}
+
+.dark-mode .table {
+    background-color: #2d2d2d;
+    color: #f0f0f0;
+}
+
+.dark-mode .table th {
+    background-color: #3d3d3d;
+    color: #f0f0f0;
+}
+
+.dark-mode .table-hover tbody tr:hover {
+    background-color: rgba(52, 152, 219, 0.1);
+}
+
+.dark-mode .accordion-button {
+    background-color: #2d2d2d;
+    color: #f0f0f0;
+    border-color: #444;
+}
+
+.dark-mode .accordion-button:not(.collapsed) {
+    background-color: #3d3d3d;
+    color: #f0f0f0;
+}
+
+.dark-mode footer {
+    background-color: #1a1a1a;
+    color: #f0f0f0;
+}
+
+.dark-mode .btn-outline-light {
+    color: #f0f0f0;
+    border-color: #f0f0f0;
+}
+
+.dark-mode .btn-outline-light:hover {
+    background-color: #f0f0f0;
+    color: #1a1a1a;
+}
+
+.dark-mode .btn-warning {
+    background-color: #ffc107;
+    border-color: #ffc107;
+    color: #000;
+}
+
+.dark-mode .btn-warning:hover {
+    background-color: #e0a800;
+    border-color: #d39e00;
+}
+
+.dark-mode .bg-light {
+    background-color: #2d2d2d !important;
+    color: #f0f0f0;
+}
+
+.dark-mode .text-primary {
+    color: #3498db !important;
+}
+
+.dark-mode .text-success {
+    color: #27ae60 !important;
+}
+
+.dark-mode .text-info {
+    color: #17a2b8 !important;
+}
+
+.dark-mode .text-warning {
+    color: #ffc107 !important;
+}
+
+@media (max-width: 768px) {
+    .hero-section {
+        height: 70vh;
+    }
+    
+    .display-4 {
+        font-size: 2.5rem;
+    }
+    
+    .hero-buttons .btn {
+        display: block;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+
+html {
+    scroll-behavior: smooth;
+}

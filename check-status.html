@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>فحص حالة المساعدة - منصة غزة</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <style>
+        .status-page {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .status-card {
+            border-radius: 20px;
+            border: none;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        
+        .status-header {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .status-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+        
+        .status-badge {
+            font-size: 0.9rem;
+            padding: 8px 15px;
+            border-radius: 50px;
+        }
+        
+        .status-timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+        
+        .status-timeline::before {
+            content: '';
+            position: absolute;
+            right: 50%;
+            transform: translateX(50%);
+            width: 2px;
+            height: 100%;
+            background: #e0e0e0;
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .timeline-item.active .timeline-dot {
+            background: #27ae60;
+            border-color: #27ae60;
+        }
+        
+        .timeline-item.completed .timeline-dot {
+            background: #2ecc71;
+            border-color: #2ecc71;
+        }
+        
+        .timeline-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: white;
+            border: 3px solid #bdc3c7;
+            position: absolute;
+            right: 50%;
+            transform: translateX(50%);
+            z-index: 1;
+        }
+        
+        .timeline-content {
+            width: 45%;
+            padding: 15px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .timeline-content.right {
+            margin-right: auto;
+            margin-left: 5%;
+        }
+        
+        .timeline-content.left {
+            margin-left: auto;
+            margin-right: 5%;
+        }
+        
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        
+        .secret-code {
+            letter-spacing: 5px;
+            font-family: monospace;
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        
+        .login-container {
+            max-width: 500px;
+            margin: 100px auto;
+            padding: 20px;
+        }
+        
+        .login-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            padding: 40px;
+        }
+        
+        .password-input {
+            position: relative;
+        }
+        
+        .toggle-password {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #666;
+        }
+        
+        @media (max-width: 768px) {
+            .timeline-content {
+                width: 90%;
+                margin: 10px auto !important;
+            }
+            
+            .status-timeline::before {
+                right: 20px;
+            }
+            
+            .timeline-dot {
+                right: 20px;
+            }
+        }
+    </style>
+</head>
+<body class="status-page">
+    <!-- زر العودة -->
+    <a href="index.html" class="back-btn btn btn-light shadow">
+        <i class="fas fa-arrow-right me-2"></i>العودة للرئيسية
+    </a>
+    
+    <!-- صفحة تسجيل الدخول -->
+    <div id="loginPage" class="login-container">
+        <div class="login-card">
+            <div class="text-center mb-4">
+                <i class="fas fa-user-shield fa-3x text-primary mb-3"></i>
+                <h2>فحص حالة الطلب</h2>
+                <p class="text-muted">أدخل رقم الهوية وكلمة السر الخاصة بك</p>
+            </div>
+            
+            <form id="statusLoginForm">
+                <div class="mb-4">
+                    <label for="nationalId" class="form-label">رقم الهوية *</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-id-card"></i></span>
+                        <input type="text" 
+                               class="form-control" 
+                               id="nationalId" 
+                               placeholder="مثال: 123456789" 
+                               required
+                               pattern="[0-9]{9}"
+                               maxlength="9">
+                    </div>
+                    <div class="form-text">يجب أن يكون رقم الهوية 9 أرقام</div>
+                </div>
+                
+                <div class="mb-4">
+                    <label for="password" class="form-label">كلمة السر *</label>
+                    <div class="password-input">
+                        <input type="password" 
+                               class="form-control" 
+                               id="password" 
+                               placeholder="أدخل كلمة السر" 
+                               required
+                               minlength="6">
+                        <span class="toggle-password" id="togglePassword">
+                            <i class="fas fa-eye"></i>
+                        </span>
+                    </div>
+                    <div class="form-text">كلمة السر مكونة من 6 أحرف على الأقل</div>
+                </div>
+                
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="rememberMe">
+                    <label class="form-check-label" for="rememberMe">تذكر بياناتي</label>
+                </div>
+                
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        <i class="fas fa-sign-in-alt me-2"></i>فحص الحالة
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary" id="forgotPassword">
+                        <i class="fas fa-key me-2"></i>نسيت كلمة السر؟
+                    </button>
+                </div>
+                
+                <div id="loginMessage" class="alert mt-3 d-none"></div>
+            </form>
+            
+            <div class="text-center mt-4">
+                <p class="text-muted mb-2">للتسجيل في المنصة:</p>
+                <a href="index.html#request" class="btn btn-outline-success">
+                    <i class="fas fa-hand-holding-heart me-2"></i>تقديم طلب مساعدة
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- صفحة عرض الحالة (مخفي في البداية) -->
+    <div id="statusPage" class="container py-5" style="display: none;">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <!-- بطالة حالة الطلب -->
+                <div class="card glass status-card mb-5">
+                    <div class="status-header">
+                        <div class="status-icon">
+                            <i class="fas fa-clipboard-check"></i>
+                        </div>
+                        <h3>حالة طلب المساعدة</h3>
+                        <p id="requestNumber" class="mb-0">طلب #</p>
+                    </div>
+                    
+                    <div class="card-body p-4">
+                        <!-- معلومات المستخدم -->
+                        <div class="row mb-4">
+                            <div class="col-md-6 mb-3">
+                                <div class="card glass h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <i class="fas fa-user text-primary me-2"></i>
+                                            معلومات المستفيد
+                                        </h5>
+                                        <table class="table table-sm">
+                                            <tr>
+                                                <th>الاسم:</th>
+                                                <td id="userName">-</td>
+                                            </tr>
+                                            <tr>
+                                                <th>رقم الهوية:</th>
+                                                <td id="userNationalId">-</td>
+                                            </tr>
+                                            <tr>
+                                                <th>المنطقة:</th>
+                                                <td id="userRegion">-</td>
+                                            </tr>
+                                            <tr>
+                                                <th>نوع المساعدة:</th>
+                                                <td id="aidType">-</td>
+                                            </tr>
+                                            <tr>
+                                                <th>عدد الأفراد:</th>
+                                                <td id="familySize">-</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                <div class="card glass h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <i class="fas fa-info-circle text-success me-2"></i>
+                                            معلومات الطلب
+                                        </h5>
+                                        <table class="table table-sm">
+                                            <tr>
+                                                <th>رقم الطلب:</th>
+                                                <td id="requestId">-</td>
+                                            </tr>
+                                            <tr>
+                                                <th>تاريخ التقديم:</th>
+                                                <td id="requestDate">-</td>
+                                            </tr>
+                                            <tr>
+                                                <th>حالة الطلب:</th>
+                                                <td>
+                                                    <span id="requestStatus" class="status-badge badge">-</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>التقدير:</th>
+                                                <td id="estimatedTime">-</td>
+                                            </tr>
+                                            <tr>
+                                                <th>الكود السري:</th>
+                                                <td>
+                                                    <div class="secret-code" id="secretCode">
+                                                        - - - - - -
+                                                    </div>
+                                                    <small class="text-muted">احفظ هذا الكود للمراجعات القادمة</small>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- خط سير العملية -->
+                        <h4 class="text-center mb-4">
+                            <i class="fas fa-road me-2"></i>مراحل معالجة الطلب
+                        </h4>
+                        
+                        <div class="status-timeline">
+                            <div class="timeline-item completed">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-content right">
+                                    <h6>تقديم الطلب</h6>
+                                    <p class="text-muted mb-0">تم استلام طلبك بنجاح</p>
+                                    <small id="step1Date">-</small>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item active">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-content left">
+                                    <h6>المراجعة الأولية</h6>
+                                    <p class="text-muted mb-0">جاري التحقق من البيانات والمستندات</p>
+                                    <small id="step2Date">-</small>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-content right">
+                                    <h6>الموافقة</h6>
+                                    <p class="text-muted mb-0">انتظار الموافقة النهائية على الطلب</p>
+                                    <small id="step3Date">-</small>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-content left">
+                                    <h6>التوزيع</h6>
+                                    <p class="text-muted mb-0">سيتم إعلامك بموعد ومكان استلام المساعدة</p>
+                                    <small id="step4Date">-</small>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <div class="timeline-dot"></div>
+                                <div class="timeline-content right">
+                                    <h6>الإستلام</h6>
+                                    <p class="text-muted mb-0">استلام المساعدة والتأكد من الرضا</p>
+                                    <small id="step5Date">-</small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- تعليمات إضافية -->
+                        <div class="alert alert-info mt-4">
+                            <h5><i class="fas fa-lightbulb me-2"></i>معلومات مهمة</h5>
+                            <ul class="mb-0">
+                                <li>احفظ رقم الطلب والكود السري للمتابعة</li>
+                                <li>سيتصل بك منسق المساعدات قبل التوزيع بـ24 ساعة</li>
+                                <li>يجب إحضار الهوية الشخصية عند استلام المساعدة</li>
+                                <li>للاستفسارات: اتصل على 1800-123-456</li>
+                            </ul>
+                        </div>
+                        
+                        <!-- أزرار التحكم -->
+                        <div class="text-center mt-4">
+                            <button class="btn btn-outline-primary me-2" id="printStatus">
+                                <i class="fas fa-print me-2"></i>طباعة الحالة
+                            </button>
+                            <button class="btn btn-outline-success me-2" id="sendSMS">
+                                <i class="fas fa-sms me-2"></i>إرسال رسالة نصية
+                            </button>
+                            <button class="btn btn-secondary" id="logoutBtn">
+                                <i class="fas fa-sign-out-alt me-2"></i>خروج
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- خيارات إضافية -->
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <div class="card glass text-center h-100">
+                            <div class="card-body">
+                                <i class="fas fa-map-marker-alt fa-2x text-warning mb-3"></i>
+                                <h5>موقع التوزيع</h5>
+                                <p id="distributionLocation">سيتم تحديده لاحقًا</p>
+                                <button class="btn btn-sm btn-outline-warning" id="viewMap">
+                                    <i class="fas fa-map me-1"></i>عرض الخريطة
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4 mb-3">
+                        <div class="card glass text-center h-100">
+                            <div class="card-body">
+                                <i class="fas fa-clock fa-2x text-info mb-3"></i>
+                                <h5>موعد الاستلام</h5>
+                                <p id="distributionTime">سيتم تحديده لاحقًا</p>
+                                <button class="btn btn-sm btn-outline-info" id="setReminder">
+                                    <i class="fas fa-bell me-1"></i>تذكير
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4 mb-3">
+                        <div class="card glass    text-center h-100">
+                            <div class="card-body">
+                                <i class="fas fa-headset fa-2x text-success mb-3"></i>
+                                <h5>الدعم الفني</h5>
+                                <p>متاح 24/7 للاستفسارات</p>
+                                <button class="btn btn-sm btn-outline-success" id="contactSupport">
+                                    <i class="fas fa-comments me-1"></i>محادثة مباشرة
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- نموذج نسيت كلمة السر -->
+    <div class="modal fade" id="forgotPasswordModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">استعادة كلمة السر</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p>أدخل رقم الهوية وسنرسل كلمة سر جديدة إلى هاتفك المسجل</p>
+                    <div class="mb-3">
+                        <label for="recoveryId" class="form-label">رقم الهوية</label>
+                        <input type="text" class="form-control" id="recoveryId">
+                    </div>
+                    <div id="recoveryMessage" class="alert d-none"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                    <button type="button" class="btn btn-primary" id="sendRecovery">إرسال</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap & jQuery JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS for Status Page -->
+    <script src="js/status.js"></script>
+</body>
+</html>

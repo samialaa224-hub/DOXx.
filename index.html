@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة تنسيق المساعدات الإنسانية - غزة</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/images/logo.png">
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header id="header" class="sticky-top">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <i class="fas fa-hands-helping me-2"></i>
+                    مساعدات غزة
+                </a>
+                
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#home">الرئيسية</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#services">أنواع المساعدات</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#distribution">مواقع التوزيع</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#request">طلب مساعدة</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="check-status.html">
+                                <i class="fas fa-search me-1"></i>فحص الطلب
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#media">فيديو توضيحي</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#contact">اتصل بنا</a>
+                        </li>
+                        <li class="nav-item">
+                            <button id="darkModeToggle" class="btn btn-outline-light btn-sm">
+                                <i class="fas fa-moon"></i>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Landing Page / Home -->
+    <section id="home" class="hero-section">
+        <div class="hero-overlay">
+            <div class="container">
+                <div class="hero-content text-center text-white">
+                    <h1 class="display-4 fw-bold mb-4">معًا نعيد البناء ونواسي المتضررين</h1>
+                    <p class="lead mb-4">منصة موحدة لتنسيق المساعدات الإنسانية في غزة، نوصل المساعدة لمن يحتاجها في الوقت المناسب</p>
+                    <div class="hero-buttons">
+                        <a href="#request" class="btn btn-warning btn-lg me-2">
+                            <i class="fas fa-hand-holding-heart me-2"></i>طلب مساعدة
+                        </a>
+                        <a href="#distribution" class="btn btn-outline-light btn-lg">
+                            <i class="fas fa-map-marker-alt me-2"></i>مواقع التوزيع
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5 section-title">أنواع المساعدات المتاحة</h2>
+            
+            <div class="row">
+                <!-- سيتم تعبئته بواسطة JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Distribution Points Section -->
+    <section id="distribution" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-5 section-title">مواقع توزيع المساعدات</h2>
+            
+            <!-- Filter Controls -->
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="fas fa-search"></i></span>
+                        <input type="text" id="searchInput" class="form-control" placeholder="ابحث عن منطقة...">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <select id="filterType" class="form-select">
+                        <option value="all">جميع أنواع المساعدات</option>
+                        <option value="غذاء">مساعدات غذائية</option>
+                        <option value="دواء">مساعدات طبية</option>
+                        <option value="مياه">مياه صالحة للشرب</option>
+                        <option value="إيواء">مواد إيواء</option>
+                    </select>
+                </div>
+            </div>
+            
+            <!-- Distribution Table -->
+            <div class="table-responsive">
+                <table class="table table-hover table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>المنطقة</th>
+                            <th>نوع المساعدة</th>
+                            <th>مكان التوزيع</th>
+                            <th>الموعد</th>
+                            <th>الحالة</th>
+                            <th>تفاصيل</th>
+                        </tr>
+                    </thead>
+                    <tbody id="distributionTable">
+                        <!-- سيتم تعبئته بواسطة JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Statistics -->
+            <div class="row mt-5">
+                <div class="col-md-3 col-6 text-center">
+                    <div class="stat-box p-3">
+                        <i class="fas fa-utensils fa-2x text-primary mb-2"></i>
+                        <h3 id="foodCount">0</h3>
+                        <p>وجبة غذائية</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 text-center">
+                    <div class="stat-box p-3">
+                        <i class="fas fa-briefcase-medical fa-2x text-success mb-2"></i>
+                        <h3 id="medicalCount">0</h3>
+                        <p>طرد طبي</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 text-center">
+                    <div class="stat-box p-3">
+                        <i class="fas fa-tint fa-2x text-info mb-2"></i>
+                        <h3 id="waterCount">0</h3>
+                        <p>لتر مياه</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 text-center">
+                    <div class="stat-box p-3">
+                        <i class="fas fa-home fa-2x text-warning mb-2"></i>
+                        <h3 id="shelterCount">0</h3>
+                        <p>عائلة مستفيدة</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Request Help Form -->
+    <section id="request" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5 section-title">طلب مساعدة إنسانية</h2>
+            
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <form id="helpRequestForm" class="card p-4 shadow">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="name" class="form-label">الاسم الكامل *</label>
+                                <input type="text" class="form-control" id="name" required>
+                                <div class="invalid-feedback">يرجى إدخال الاسم</div>
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                <label for="idNumber" class="form-label">رقم الهوية الوطنية *</label>
+                                <input type="text" class="form-control" id="idNumber" required pattern="[0-9]{9}" maxlength="9">
+                                <div class="invalid-feedback">يرجى إدخال رقم هوية صحيح (9 أرقام)</div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="phone" class="form-label">رقم الهاتف *</label>
+                                <input type="tel" class="form-control" id="phone" required>
+                                <div class="invalid-feedback">يرجى إدخال رقم هاتف صحيح</div>
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                <label for="maritalStatus" class="form-label">الحالة الاجتماعية *</label>
+                                <select class="form-select" id="maritalStatus" required>
+                                    <option value="">اختر الحالة</option>
+                                    <option value="أعزب">أعزب</option>
+                                    <option value="متزوج">متزوج</option>
+                                    <option value="مطلق">مطلق</option>
+                                    <option value="أرمل">أرمل</option>
+                                </select>
+                                <div class="invalid-feedback">يرجى اختيار الحالة الاجتماعية</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Spouse Information (shown only if married) -->
+                        <div id="spouseInfo" class="row d-none">
+                            <div class="col-md-6 mb-3">
+                                <label for="spouseName" class="form-label">اسم الزوجة *</label>
+                                <input type="text" class="form-control" id="spouseName">
+                                <div class="invalid-feedback">يرجى إدخال اسم الزوجة</div>
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                <label for="spouseId" class="form-label">رقم هوية الزوجة *</label>
+                                <input type="text" class="form-control" id="spouseId" pattern="[0-9]{9}" maxlength="9">
+                                <div class="invalid-feedback">يرجى إدخال رقم هوية صحيح (9 أرقام)</div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="address" class="form-label">العنوان المفصل *</label>
+                            <textarea class="form-control" id="address" rows="2" required></textarea>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="region" class="form-label">المنطقة *</label>
+                                <select class="form-select" id="region" required>
+                                    <option value="">اختر المنطقة</option>
+                                    <option value="غزة">مدينة غزة</option>
+                                    <option value="رفح">رفح</option>
+                                    <option value="خان يونس">خان يونس</option>
+                                    <option value="دير البلح">دير البلح</option>
+                                    <option value="بيت لاهيا">بيت لاهيا</option>
+                                    <option value="جباليا">جباليا</option>
+                                </select>
+                            </div>
+                            
+                            <div class="col-md-6 mb-3">
+                                <label for="aidType" class="form-label">نوع المساعدة المطلوبة *</label>
+                                <select class="form-select" id="aidType" required>
+                                    <option value="">اختر نوع المساعدة</option>
+                                    <option value="غذاء">مساعدات غذائية</option>
+                                    <option value="دواء">مساعدات طبية</option>
+                                    <option value="مياه">مياه صالحة للشرب</option>
+                                    <option value="إيواء">مواد إيواء</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="details" class="form-label">تفاصيل إضافية</label>
+                            <textarea class="form-control" id="details" rows="3" placeholder="أي معلومات إضافية قد تساعدنا في تقديم المساعدة المناسبة..."></textarea>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="familySize" class="form-label">عدد أفراد الأسرة</label>
+                            <input type="range" class="form-range" id="familySize" min="1" max="15" value="5">
+                            <div class="d-flex justify-content-between">
+                                <small>1 فرد</small>
+                                <span id="familySizeValue">5 أفراد</span>
+                                <small>15 فرد</small>
+                            </div>
+                        </div>
+                        
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-paper-plane me-2"></i>إرسال الطلب
+                            </button>
+                        </div>
+                        
+                        <div id="formMessage" class="alert mt-3 d-none"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Media Section -->
+    <section id="media" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-5 section-title">فيديو توضيحي</h2>
+            
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <div class="ratio ratio-16x9">
+                                <video id="helpVideo" controls poster="assets/images/hero-bg.jpg">
+                                    <source src="assets/video/help-guide.mp4" type="video/mp4">
+                                    متصفحك لا يدعم تشغيل الفيديو
+                                </video>
+                            </div>
+                            <div class="mt-3">
+                                <button id="playPauseBtn" class="btn btn-outline-primary btn-sm">
+                                    <i class="fas fa-play"></i> تشغيل/إيقاف
+                                </button>
+                                <button id="muteBtn" class="btn btn-outline-secondary btn-sm ms-2">
+                                    <i class="fas fa-volume-up"></i> كتم/إلغاء
+                                </button>
+                                <span class="float-end" id="videoTime">00:00 / 00:00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5 section-title">اتصل بنا</h2>
+            
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card text-center h-100">
+                        <div class="card-body">
+                            <i class="fas fa-phone fa-3x text-primary mb-3"></i>
+                            <h5>الاتصال الهاتفي</h5>
+                            <p>1800-123-456</p>
+                            <p>24/7 خط الطوارئ</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <div class="card text-center h-100">
+                        <div class="card-body">
+                            <i class="fas fa-envelope fa-3x text-success mb-3"></i>
+                            <h5>البريد الإلكتروني</h5>
+                            <p>info@gazaaid.org</p>
+                            <p>support@gazaaid.org</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <div class="card text-center h-100">
+                        <div class="card-body">
+                            <i class="fas fa-map-marker-alt fa-3x text-warning mb-3"></i>
+                            <h5>المقر الرئيسي</h5>
+                            <p>غزة - شارع الرشيد</p>
+                            <p>مبنى جمعية الإغاثة</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- FAQ Accordion -->
+            <div class="row mt-5">
+                <div class="col-lg-8 mx-auto">
+                    <h3 class="text-center mb-4">الأسئلة الشائعة</h3>
+                    <div class="accordion" id="faqAccordion">
+                        <!-- سيتم تعبئته بواسطة JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>منصة مساعدات غزة</h5>
+                    <p>نسعى لتوفير المساعدة الإنسانية للمحتاجين في قطاع غزة وتنسيق عمليات الإغاثة بكفاءة.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p>تابعنا على:</p>
+                    <div class="social-icons">
+                        <a href="#" class="text-white me-3"><i class="fab fa-facebook fa-2x"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-twitter fa-2x"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-instagram fa-2x"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="bg-white">
+            <div class="text-center">
+                <p class="mb-0">© 2026 منصة تنسيق المساعدات الإنسانية - غزة. جميع الحقوق محفوظة</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap & jQuery JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="js/main.js"></script>
+</body>
+</html>
